@@ -157,44 +157,114 @@ router.delete("/", auth, async (req, res) => {
 // @access private
 router.put(
   "/experience",
-  [auth, [check("title", "title is required").not().isEmpty(), 
-  check("company", "company is required").not().isEmpty(), 
-  check("from", "from is required").not().isEmpty(), 
-  ]],
+  [
+    auth,
+    [
+      check("title", "title is required").not().isEmpty(),
+      check("company", "company is required").not().isEmpty(),
+      check("from", "from is required").not().isEmpty(),
+    ],
+  ],
   async (req, res) => {
-    const errors=validationResult(req);
-    if(!errors.isEmpty()){
-      return res.status(400).json({errors:error.array()});
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: error.array() });
     }
-    const {
+    const { title, company, location, from, to, current, description } =
+      req.body;
+    const newExp = {
       title,
       company,
       location,
       from,
       to,
       current,
-      description
-    }=req.body;
-    const newExp={
-      title,
-      company,
-      location,
-      from,
-      to,
-      current,
-      description
-    }
+      description,
+    };
 
-    try{
-      const profile=await Profile.findOne({user:req.user.id});
+    try {
+      const profile = await Profile.findOne({ user: req.user.id });
       profile.experience.unshift(newExp);
       await profile.save();
       res.json(profile);
-    }catch(err){
+    } catch (err) {
       console.error(err.message);
-      res.status(500).send('Server error');
+      res.status(500).send("Server error");
     }
-
   }
 );
+
+// @route delete api/profile/experience
+// @desc  delete profile experience
+// @access private
+router.delete("/experience/:exp_id", auth, async (req, res) => {
+  try {
+    const profile = await Profile.findOne({ user: req.user.id });
+
+    const removeIndex = profile.experience
+      .map((item) => item.id)
+      .indexOf(req.params.exp_id);
+      
+      //console.log(`${removeIndex } and ${profile.experience.length}`);
+   if( removeIndex<0)
+   {
+     //console.log("deos not exist");
+     return res.json({msg:"exp does not exist"})
+   }
+   
+     profile.experience.splice(removeIndex,1);
+     await profile.save();
+     res.json(profile)
+   
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(" server error");
+  }
+});
+
+
+// updating a experience
+
+
+// // @route post api/profile/experience
+// // @desc  post profile experience
+// // @access private
+// router.post("/experience/:exp_id", auth, async (req, res) => {
+//   const { title, company, location, from, to, current, description } =
+//       req.body;
+//     const updateExp = {
+//       title,
+//       company,
+//       location,
+//       from,
+//       to,
+//       current,
+//       description,
+//     };
+
+//   try {
+//     const profile = await Profile.findOne({ user: req.user.id });
+
+//     const updatdeIndex = profile.experience
+//       .map((item) => item.id)
+//       .indexOf(req.params.exp_id);
+      
+//       if(updatdeIndex>0)
+//       {
+//         profile.experience={...Profile,updateExp};
+//         res.json(Profile);
+//       }
+//       else{
+//         res.json({msg:" your error"})
+//       }
+
+
+//   } catch (err) {
+//     console.error(err.message);
+//     res.status(500).send(" server error");
+//   }
+// });
+
+  
 module.exports = router;
