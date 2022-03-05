@@ -15,4 +15,6 @@ const conncetdDB=async()=>{
         process.exit(1);
     }
 }
+
+
 module.exports=conncetdDB;
