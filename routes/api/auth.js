@@ -85,6 +85,6 @@ router.post(
       //res.send("User route");
     }
   );
-  module.exports = router;
+
   
 module.exports=router;
