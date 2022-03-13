@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {  createProfile } from "../../actions/profile";
+import {  createProfile,getCurrentProfile } from "../../actions/profile";
 import {  useMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 const initialState = {
@@ -20,15 +20,17 @@ const initialState = {
   youtube: "",
   instagram: "",
 };
-const CreateProfile = ({
+const EditProfile = ({
   profile: { profile, loading },
   createProfile,
-  //getCurrentProfile,
+  getCurrentProfile,
 }) => {
   const [formData, setFormData] = useState({
     initialState,
   });
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
+
+
 
   const {
     company,
@@ -45,37 +47,38 @@ const CreateProfile = ({
     linkedin,
   } = formData;
   const navigate = useNavigate();
-  // useEffect(() => {
-  //   // if there is no profile, attempt to fetch one
-  //   if (!profile) getCurrentProfile();
+ 
+  useEffect(() => {
+    // if there is no profile, attempt to fetch one
+    if (!profile) getCurrentProfile();
 
-  //   // if we finished loading and we do have a profile
-  //   // then build our profileData
-  //   if (!loading && profile) {
-  //     const profileData = { ...initialState };
-  //     for (const key in profile) {
-  //       if (key in profileData) profileData[key] = profile[key];
-  //     }
-  //     for (const key in profile.social) {
-  //       if (key in profileData) profileData[key] = profile.social[key];
-  //     }
-  //     // the skills may be an array from our API response
-  //     if (Array.isArray(profileData.skills))
-  //       profileData.skills = profileData.skills.join(", ");
-  //     // set local state with the profileData
-  //     setFormData(profileData);
-  //   }
-  // }, [loading, getCurrentProfile, profile]);
+    // if we finished loading and we do have a profile
+    // then build our profileData
+    if (!loading && profile) {
+      const profileData = { ...initialState };
+      for (const key in profile) {
+        if (key in profileData) profileData[key] = profile[key];
+      }
+      for (const key in profile.social) {
+        if (key in profileData) profileData[key] = profile.social[key];
+      }
+      // the skills may be an array from our API response
+      if (Array.isArray(profileData.skills))
+        profileData.skills = profileData.skills.join(', ');
+      // set local state with the profileData
+      setFormData(profileData);
+    }
+  }, [loading, getCurrentProfile, profile]);
 
   const onChange = (e) =>
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
-  const onSubmit = (e) => {
-    e.preventDefault();
-    createProfile(formData, navigate, profile ? true : false);
-  };
+    const onSubmit = (e) => {
+        e.preventDefault();
+        createProfile(formData, navigate, true);
+      };
   return (
     <Fragment>
       <h1 className="large text-primary">Create Your Profile</h1>
@@ -87,7 +90,7 @@ const CreateProfile = ({
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <select name="status" value={status} onChange={(e) => onChange(e)}>
-          <option>* Select Professional Status</option>
+            <option value="0">* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
             <option value="Senior Developer">Senior Developer</option>
@@ -250,11 +253,13 @@ const CreateProfile = ({
   );
 };
 
-CreateProfile.propTypes = {
+EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
+  getCurrentProfile:PropTypes.func.isRequired,
+  profile:PropTypes.object.isRequired
 };
 const mapStateToProps = (state) => ({
   profile: state.profile
 
 });
-export default connect(mapStateToProps, { createProfile })(CreateProfile);
+export default connect(mapStateToProps, { createProfile,getCurrentProfile })(EditProfile);

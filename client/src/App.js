@@ -10,6 +10,9 @@ import { loadUser } from "./actions/auth";
 import CreateProfile from "./components/profile-forms/CreateProfile";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import EditProfile from "./components/profile-forms/EditProfile";
+import AddExperience from "./components/profile-forms/AddExperience";
+import AddEducation from "./components/profile-forms/AddEducation";
 // redux
 
 import { Provider } from "react-redux";
@@ -37,6 +40,18 @@ const App = () => {
           <Route
             path="/create-profile"
             element={<PrivateRoute component={CreateProfile} />}
+          />
+          <Route
+            path="/edit-profile"
+            element={<PrivateRoute component={EditProfile} />}
+          />
+          <Route
+            path="/add-experience"
+            element={<PrivateRoute component={AddExperience} />}
+          />
+          <Route
+            path="/add-education"
+            element={<PrivateRoute component={AddEducation} />}
           />
         </Routes>
       </BrowserRouter>
