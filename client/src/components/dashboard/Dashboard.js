@@ -24,7 +24,7 @@ const Dashboard = ({
       </p>
       {profile !== null ? (
         <Fragment>
-          <DashboardActions/>
+          <DashboardActions />
         </Fragment>
       ) : (
         <Fragment>

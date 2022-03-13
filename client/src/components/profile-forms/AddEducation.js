@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { addEducation } from '../../actions/profile';
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { addEducation } from "../../actions/profile";
 
 const AddEducation = ({ addEducation }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    school: '',
-    degree: '',
-    fieldofstudy: '',
-    from: '',
-    to: '',
+    school: "",
+    degree: "",
+    fieldofstudy: "",
+    from: "",
+    to: "",
     current: false,
-    description: ''
+    description: "",
   });
 
   const { school, degree, fieldofstudy, from, to, description, current } =
@@ -78,7 +78,7 @@ const AddEducation = ({ addEducation }) => {
               checked={current}
               value={current}
               onChange={() => setFormData({ ...formData, current: !current })}
-            />{' '}
+            />{" "}
             Current School
           </p>
         </div>
@@ -112,7 +112,7 @@ const AddEducation = ({ addEducation }) => {
 };
 
 AddEducation.propTypes = {
-  addEducation: PropTypes.func.isRequired
+  addEducation: PropTypes.func.isRequired,
 };
 
 export default connect(null, { addEducation })(AddEducation);

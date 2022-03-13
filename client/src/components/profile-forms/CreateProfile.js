@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {  createProfile } from "../../actions/profile";
-import {  useMatch } from "react-router-dom";
+import { createProfile } from "../../actions/profile";
+import { useMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 const initialState = {
   company: "",
@@ -87,7 +87,7 @@ const CreateProfile = ({
       <form className="form" onSubmit={(e) => onSubmit(e)}>
         <div className="form-group">
           <select name="status" value={status} onChange={(e) => onChange(e)}>
-          <option>* Select Professional Status</option>
+            <option>* Select Professional Status</option>
             <option value="Developer">Developer</option>
             <option value="Junior Developer">Junior Developer</option>
             <option value="Senior Developer">Senior Developer</option>
@@ -254,7 +254,6 @@ CreateProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
 };
 const mapStateToProps = (state) => ({
-  profile: state.profile
-
+  profile: state.profile,
 });
 export default connect(mapStateToProps, { createProfile })(CreateProfile);

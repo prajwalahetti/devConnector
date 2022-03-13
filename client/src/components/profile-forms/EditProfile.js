@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {  createProfile,getCurrentProfile } from "../../actions/profile";
-import {  useMatch } from "react-router-dom";
+import { createProfile, getCurrentProfile } from "../../actions/profile";
+import { useMatch } from "react-router-dom";
 import { Link } from "react-router-dom";
 const initialState = {
   company: "",
@@ -30,8 +30,6 @@ const EditProfile = ({
   });
   const [displaySocialInputs, toggleSocialInputs] = useState(false);
 
-
-
   const {
     company,
     website,
@@ -47,7 +45,7 @@ const EditProfile = ({
     linkedin,
   } = formData;
   const navigate = useNavigate();
- 
+
   useEffect(() => {
     // if there is no profile, attempt to fetch one
     if (!profile) getCurrentProfile();
@@ -64,7 +62,7 @@ const EditProfile = ({
       }
       // the skills may be an array from our API response
       if (Array.isArray(profileData.skills))
-        profileData.skills = profileData.skills.join(', ');
+        profileData.skills = profileData.skills.join(", ");
       // set local state with the profileData
       setFormData(profileData);
     }
@@ -75,10 +73,10 @@ const EditProfile = ({
       ...formData,
       [e.target.name]: e.target.value,
     });
-    const onSubmit = (e) => {
-        e.preventDefault();
-        createProfile(formData, navigate, true);
-      };
+  const onSubmit = (e) => {
+    e.preventDefault();
+    createProfile(formData, navigate, true);
+  };
   return (
     <Fragment>
       <h1 className="large text-primary">Create Your Profile</h1>
@@ -255,11 +253,12 @@ const EditProfile = ({
 
 EditProfile.propTypes = {
   createProfile: PropTypes.func.isRequired,
-  getCurrentProfile:PropTypes.func.isRequired,
-  profile:PropTypes.object.isRequired
+  getCurrentProfile: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
 };
 const mapStateToProps = (state) => ({
-  profile: state.profile
-
+  profile: state.profile,
 });
-export default connect(mapStateToProps, { createProfile,getCurrentProfile })(EditProfile);
+export default connect(mapStateToProps, { createProfile, getCurrentProfile })(
+  EditProfile
+);
