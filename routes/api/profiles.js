@@ -4,9 +4,8 @@ const auth = require("../../middleware/auth");
 const { check, validationResult } = require("express-validator");
 const Profile = require("../../models/Profile");
 const User = require("../../models/User");
-const request=require('request');
-const config=require('config');
-
+const request = require("request");
+const config = require("config");
 
 const { status, header } = require("express/lib/response");
 // @route GET api/profile/me
@@ -173,7 +172,7 @@ router.put(
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
-    } 
+    }
     const { title, company, location, from, to, current, description } =
       req.body;
     const newExp = {
@@ -294,25 +293,30 @@ router.delete("/education/:edu_id", auth, async (req, res) => {
 });
 
 //@route get api/profile/github:username
- // @desc  get user repos from github
- // @access public
-router.get('/github/:username',(req,res)=>{
+// @desc  get user repos from github
+// @access public
+router.get("/github/:username", (req, res) => {
   try {
-    const options={uri: `https://api.github.com/users/${req.params.username}/repos?per_page=5&sort=created:asc&client_id=${config.get('githubClientId')}&client_secret=${config.get('githubSecret')}`,
-    method:'GET',
-    headers:{'user-agent':'nod.js'}};
-    request(options,(error,response,body)=>{
-      if(error)console.error(error);
-      if(response.statusCode!==200){
-       return res.status(404).json({msg:'No github profile found'})
+    const options = {
+      uri: `https://api.github.com/users/${
+        req.params.username
+      }/repos?per_page=5&sort=created:asc&client_id=${config.get(
+        "githubClientId"
+      )}&client_secret=${config.get("githubSecret")}`,
+      method: "GET",
+      headers: { "user-agent": "nod.js" },
+    };
+    request(options, (error, response, body) => {
+      if (error) console.error(error);
+      if (response.statusCode !== 200) {
+        return res.status(404).json({ msg: "No github profile found" });
       }
-      res.json(JSON.parse(body))
-    })
+      res.json(JSON.parse(body));
+    });
   } catch (error) {
     console.error(error.message);
-    
   }
-})
+});
 
 // // @route post api/profile/experience
 // // @desc  post profile experience

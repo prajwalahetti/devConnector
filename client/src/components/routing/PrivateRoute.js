@@ -1,39 +1,25 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
 import PropTypes from "prop-types";
-import "../../App.css";
 import { connect } from "react-redux";
-import { BrowserRouter,Route,Routes, Navigate } from "react-router-dom";
+import Spinner from "../layout/Spinner";
 
-const PrivateRoute = ({component:Component,...rest}) => {
+const PrivateRoute = ({
+  component: Component,
+  auth: { isAuthenticated, loading },
+}) => {
+  if (loading) return <Spinner />;
+  if (isAuthenticated) return <Component />;
 
- return(
-    <BrowserRouter>
-    <div className="container">
-      
-    
-     
-    <Routes>
-    <Route {...rest} render={(props)=>(<Component {...props}/>)} />
-    </Routes>
-   
-
-     
-
-     </div>
-     </BrowserRouter>
- )
+  return <Navigate to="/login" />;
 };
 
-// PrivateRoute.propTypes = {
-//   auth: PropTypes.object.isRequired,
-// };
+PrivateRoute.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
 
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-// });
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default PrivateRoute;
-
-// const PrivateRoute = ({element : Component,auth:{isAuthenticated,loading},...rest}) => (
-//     <Route {...rest} render={(props)=> (!isAuthenticated && !loading) ? (<Navigate to='/login' />) :(<Component {...props} />)}/>
-// )
+export default connect(mapStateToProps)(PrivateRoute);

@@ -3,39 +3,36 @@ import "../../App.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
 import { Navigate } from "react-router-dom";
 
-const Login = ({login,isAuthenticated}) => {
+const Login = ({ login, isAuthenticated }) => {
   const [formData, setFormData] = useState({
-    
     email: "",
-    password: ""
+    password: "",
   });
-  const {  email,password} = formData;
+  const { email, password } = formData;
   const onChange = (e) =>
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    login(email,password);
+    login(email, password);
     //console.log('SUCCESS');
   };
 
-
-  // redirect if logged in 
-  if(isAuthenticated){
-    return <Navigate to='/dashboard'/>
+  // redirect if logged in
+  if (isAuthenticated) {
+    return <Navigate to="/dashboard" />;
   }
   return (
     <div className="container">
       <Fragment>
         <h1 className="large text-primary">Sign In</h1>
         <p className="lead">
-          <i className="fas fa-user"></i>  Sign In to Your Account
+          <i className="fas fa-user"></i> Sign In to Your Account
         </p>
         <form className="form" onSubmit={(e) => onSubmit(e)}>
-         
           <div className="form-group">
             <input
               type="email"
@@ -44,7 +41,6 @@ const Login = ({login,isAuthenticated}) => {
               value={email}
               onChange={(e) => onChange(e)}
             />
-            
           </div>
           <div className="form-group">
             <input
@@ -57,7 +53,7 @@ const Login = ({login,isAuthenticated}) => {
               onChange={(e) => onChange(e)}
             />
           </div>
-         
+
           <input type="submit" className="btn btn-primary" value="Login" />
         </form>
         <p className="my-1">
@@ -67,11 +63,11 @@ const Login = ({login,isAuthenticated}) => {
     </div>
   );
 };
-login.protoTypes={
-  login:PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool
-}
-const mapStateToProps=state=>({
-  isAuthenticated:state.auth.isAuthenticated
-})
-export default connect(mapStateToProps,{login})(Login);
+login.protoTypes = {
+  login: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps, { login })(Login);
