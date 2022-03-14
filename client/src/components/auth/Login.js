@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "../../App.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -27,7 +27,7 @@ const Login = ({ login, isAuthenticated }) => {
   }
   return (
     <div className="container">
-      <Fragment>
+     
         <h1 className="large text-primary">Sign In</h1>
         <p className="lead">
           <i className="fas fa-user"></i> Sign In to Your Account
@@ -59,11 +59,11 @@ const Login = ({ login, isAuthenticated }) => {
         <p className="my-1">
           Dont have an account? <Link to="/register">Sign Up</Link>
         </p>
-      </Fragment>
+     
     </div>
   );
 };
-login.protoTypes = {
+login.propTypes = {
   login: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };

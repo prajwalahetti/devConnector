@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "../../App.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -23,28 +23,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
       setAlert("passwords do not match", "danger");
     } else {
       register({ name, email, password });
-      //console.log('SUCCESS');
-      // {
-      //     console.log(formData);
-      //   const newUser={
-      //       name,
-      //       email,
-      //       password
-      //   };
-      //   try {
-      //         const config={
-      //             headers:{
-      //                 'Content-Type':'application/json'
-      //             }
-      //         }
-      //         const body= JSON.stringify(newUser);
-      //         const res=await axios.post('/api/users',body,config)
-      //         console.log(res.data);
-      //   } catch(error) {
-      //       console.error(error.response.data);
-
-      //   }
-      // }
     }
   };
 
@@ -54,7 +32,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
   }
   return (
     <div className="container">
-      <Fragment>
+      
         <h1 className="large text-primary">Sign Up</h1>
         <p className="lead">
           <i className="fas fa-user"></i> Create Your Account
@@ -109,7 +87,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         <p className="my-1">
           Already have an account? <Link to="/login">Sign In</Link>
         </p>
-      </Fragment>
+      
     </div>
   );
 };
