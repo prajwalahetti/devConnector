@@ -3,26 +3,27 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { Fragment } from "react";
 import Momemnt from "react-moment";
-
-const Education = ({ education }) => {
+import { deleteEducation } from "../../actions/profile";
+const Education = ({ education,deleteEducation }) => {
     
-    const educations =  education.map((exp) => (
-        <tr key={exp._id}>
-          <td>{exp.school}</td>
-          <td className="hide-sm">{exp.feildofstudy}</td>
+    const educations =  education.map((edu) => (
+        <tr key={edu._id}>
+          <td>{edu.school}</td>
+          <td className="hide-sm">{edu.feildofstudy}</td>
           <td>
-        <Momemnt format="YYYY/MM/DD">{exp.from}</Momemnt>
-        {exp.to === null ? (
+        <Momemnt format="YYYY/MM/DD">{edu.from}</Momemnt>
+        {edu.to === null ? (
           "Present"
         ) : (
-          <Momemnt format="YYYY/MM/DD">{exp.to}</Momemnt>
+          <Momemnt format="YYYY/MM/DD">{edu.to}</Momemnt>
         )}
       </td>
       <td>
         <button
-          
+         onClick={()=>deleteEducation(edu._id)}
           className="btn btn-danger"
         >
+          
           Delete
         </button>
       </td>
@@ -46,7 +47,8 @@ const Education = ({ education }) => {
 };
 
 Education.propTypes = {
-    education:PropTypes.array.isRequired
+    education:PropTypes.array.isRequired,
+    deleteEducation:PropTypes.func.isRequired
 };
 
-export default Education;
+export default connect(null,{deleteEducation})(Education);

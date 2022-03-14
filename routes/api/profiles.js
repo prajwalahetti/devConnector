@@ -6,7 +6,7 @@ const Profile = require("../../models/Profile");
 const User = require("../../models/User");
 const request = require("request");
 const config = require("config");
-
+const Post=require('../../models/Post')
 const { status, header } = require("express/lib/response");
 // @route GET api/profile/me
 // @desc get current users profile
@@ -23,7 +23,7 @@ router.get("/me", auth, async (req, res) => {
     res.json(profile);
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Seerver Error");
+    res.status(500).send("Server Error");
   }
 });
 // @route Post api/profile
@@ -143,11 +143,12 @@ router.get("/user/:user_id", async (req, res) => {
 // @access public
 router.delete("/", auth, async (req, res) => {
   try {
-    //
+    // remove posts
+    await Post.deleteMany({user:req.user.id});
     // remove profile
     await Profile.findOneAndRemove({ user: req.user.id });
     // remove user
-    await Profile.findOneAndRemove({ _id: req.user.id });
+    await User.findOneAndRemove({ _id: req.user.id });
 
     res.json({ msg: "User deleted" });
   } catch (err) {
