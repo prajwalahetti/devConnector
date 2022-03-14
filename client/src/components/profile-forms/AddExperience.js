@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import { addExperience } from "../../actions/profile";
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { addExperience } from '../../actions/profile';
 
 const AddExperience = ({ addExperience }) => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    company: "",
-    title: "",
-    location: "",
-    from: "",
-    to: "",
+    company: '',
+    title: '',
+    location: '',
+    from: '',
+    to: '',
     current: false,
-    description: "",
+    description: ''
   });
 
   const { company, title, location, from, to, current, description } = formData;
@@ -79,7 +79,7 @@ const AddExperience = ({ addExperience }) => {
               onChange={() => {
                 setFormData({ ...formData, current: !current });
               }}
-            />{" "}
+            />{' '}
             Current Job
           </p>
         </div>
@@ -113,7 +113,7 @@ const AddExperience = ({ addExperience }) => {
 };
 
 AddExperience.propTypes = {
-  addExperience: PropTypes.func.isRequired,
+  addExperience: PropTypes.func.isRequired
 };
 
 export default connect(null, { addExperience })(AddExperience);

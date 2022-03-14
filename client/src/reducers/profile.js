@@ -38,6 +38,6 @@ export default function f(state = initialState, action) {
         loading: false,
       };
     default:
-      return false;
+      return state;
   }
 }
