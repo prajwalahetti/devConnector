@@ -6,7 +6,28 @@ import Momemnt from "react-moment";
 
 const Experience = ({ experience }) => {
     
-    const experiences = 5;
+    const experiences =  experience.map((exp) => (
+        <tr key={exp._id}>
+          <td>{exp.company}</td>
+          <td className="hide-sm">{exp.title}</td>
+          <td>
+        <Momemnt format="YYYY/MM/DD">{exp.from}</Momemnt>
+        {exp.to === null ? (
+          "Present"
+        ) : (
+          <Momemnt format="YYYY/MM/DD">{exp.to}</Momemnt>
+        )}
+      </td>
+      <td>
+        <button
+          
+          className="btn btn-danger"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  ));
   return (
     <Fragment>
       <h2 className="my-2">Experience Credentials</h2>
