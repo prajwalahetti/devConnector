@@ -5,7 +5,9 @@ import Spinner from "../layout/Spinner";
 import { getProfileById } from "../../actions/profile";
 import { useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import ProfileTop from "./ProfileTop";
 import "../../App.css";
+import ProfileAbout from "./ProfileAbout";
 const Profile = ({
   match,
   getProfileById,
@@ -29,6 +31,11 @@ const Profile = ({
                 Edit Profile
               </Link>
             )}
+            <div class="profile-grid my-1">
+              <ProfileTop profile={profile}  />
+              <ProfileAbout profile={profile}/>
+            </div>
+           
           </Fragment>}
     </div>
   );
