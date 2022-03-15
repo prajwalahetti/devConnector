@@ -163,12 +163,12 @@ const CreateProfile = ({
           </small>
         </div>
         <div className="form-group">
-          <textarea
+        <textarea
             placeholder="A short bio of yourself"
-            value={bio}
-            onChange={(e) => onChange(e)}
             name="bio"
-          ></textarea>
+            value={bio}
+            onChange={onChange}
+          />
           <small className="form-text">Tell us a little about yourself</small>
         </div>
 

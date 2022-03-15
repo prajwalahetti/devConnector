@@ -17,6 +17,11 @@ import AddEducation from "./components/profile-forms/AddEducation";
 
 import { Provider } from "react-redux";
 import store from "././app/store";
+import setAuthToken from "./utils/setAuthToken";
+
+if(localStorage.token){
+  setAuthToken(localStorage.token)
+}
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
