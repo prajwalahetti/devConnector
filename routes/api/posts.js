@@ -93,7 +93,7 @@ router.delete("/:id", auth, async (req, res) => {
 // @desc put like on post by id
 // @access Private
 
-router.get("/like/:id", auth, async (req, res) => {
+router.put("/like/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     if (!post) return res.status(404).json({ msg: "post not found" });
@@ -118,7 +118,7 @@ router.get("/like/:id", auth, async (req, res) => {
 // @desc unlike on post by id
 // @access Private
 
-router.get("/unlike/:id", auth, async (req, res) => {
+router.put("/unlike/:id", auth, async (req, res) => {
   try {
     const post = await Post.findById(req.params.id);
     //  if(!post)return res.status(404).json({msg:'post not found'});
