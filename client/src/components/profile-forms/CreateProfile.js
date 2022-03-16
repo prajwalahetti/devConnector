@@ -20,11 +20,7 @@ const initialState = {
   youtube: "",
   instagram: "",
 };
-const CreateProfile = ({
-  profile: { profile, loading },
-  createProfile,
- 
-}) => {
+const CreateProfile = ({ profile: { profile, loading }, createProfile }) => {
   const [formData, setFormData] = useState({
     initialState,
   });
@@ -45,7 +41,7 @@ const CreateProfile = ({
     linkedin,
   } = formData;
   const navigate = useNavigate();
-  
+
   const onChange = (e) =>
     setFormData({
       ...formData,
@@ -142,7 +138,7 @@ const CreateProfile = ({
           </small>
         </div>
         <div className="form-group">
-        <textarea
+          <textarea
             placeholder="A short bio of yourself"
             name="bio"
             value={bio}

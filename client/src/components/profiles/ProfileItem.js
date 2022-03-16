@@ -24,16 +24,15 @@ const ProfileItem = ({
         <Link to={`/profile/${_id}`} className="btn btn-primary">
           View Profile
         </Link>
-       
       </div>
       <ul>
-            {skills.slice(0,4).map((skill,index)=>(
-                <li key={index} className="text-primary">
-                    <i className="fas fa-check"></i>
-                    {skill}
-                </li>
-            ))}
-        </ul> 
+        {skills.slice(0, 4).map((skill, index) => (
+          <li key={index} className="text-primary">
+            <i className="fas fa-check"></i>
+            {skill}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };
