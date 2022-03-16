@@ -83,7 +83,7 @@ export const deletePost = (id) => async (dispatch) => {
 // add post
 export const addPost = (formData) => async (dispatch) => {
   const config = {
-    header: {
+    headers: {
       "Content-Type": "application/json",
     },
   };
@@ -123,7 +123,7 @@ export const getPost = (id) => async (dispatch) => {
 
 export const addComment = (postId, formData) => async (dispatch) => {
   const config = {
-    header: {
+    headers: {
       "Content-Type": "application/json",
     },
   };
