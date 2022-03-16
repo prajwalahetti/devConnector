@@ -100,7 +100,7 @@ router.post(
       res.status(500).send("Servver error");
     }
 
-    console.log(profileFields.skills);
+    // console.log(profileFields.skills);
     //res.send("Hello");
   }
 );

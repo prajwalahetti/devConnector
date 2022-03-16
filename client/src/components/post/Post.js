@@ -8,7 +8,7 @@ import CommentForm from "../post/CommentForm";
 import CommentItem from "../post/CommentItem";
 import { getPost } from "../../actions/post";
 
-const Post = ({ getPost, post: { post, loading } }) => {
+const Post = ({ getPost, post: { avatar,post, loading } }) => {
   const { id } = useParams();
   useEffect(() => {
     getPost(id);
@@ -25,7 +25,7 @@ const Post = ({ getPost, post: { post, loading } }) => {
       <CommentForm postId={post._id} />
       <div className="comments">
         {post.comments.map((comment) => (
-          <CommentItem key={comment._id} comment={comment} postId={post._id} />
+          <CommentItem key={comment._id} comment={comment} avatar={post.avatar} postId={post._id} />
         ))}
       </div>
     </section>
