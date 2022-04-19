@@ -173,11 +173,11 @@ export const addEducation = (formData, navigate) => async (dispatch) => {
 export const deleteExperience = (id) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/profile/experience/${id}`);
-    dispatch({
-      type: UPDATE_PROFILE,
-      payload: res.data,
-    });
-    dispatch(setAlert("Experience Removed", "success"));
+      dispatch({
+        type: UPDATE_PROFILE,
+        payload: res.data,
+      });
+      dispatch(setAlert("Experience Removed", "success"));
   } catch (err) {
     dispatch({
       type: PROFILE_ERROR,
